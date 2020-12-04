@@ -1,7 +1,7 @@
 ## AutoSeeder 
 
-AutoSeeder is a Python script that automatically seeds smash.gg tournaments 
-using a ranking algorithm based on player results from smashdata.gg.
+AutoSeeder is a Python script that automatically seeds Smash Ultimate tournaments
+on smash.gg using a ranking algorithm based on player results from smashdata.gg.
 
 
 
@@ -51,7 +51,7 @@ However, there are rare instances where these IDs do not match.
 As a result, autoseeder will be unable to find tournament results for this player when they actually exist.
 
 - While smashdata.gg can create tournament results for a player without a
-smash.gg account, autoseeder cannot find that data. Therefore, players
-without smash.gg accounts will never be seeded.
+smash.gg account, autoseeder might not find that data due to how it connects
+with smash.gg. Therefore, players without smash.gg accounts are less likely to be seeded.
 (Generally, this is not a real issue, since players that aren't on smash.gg
 don't usually need to be seeded anyway...)
