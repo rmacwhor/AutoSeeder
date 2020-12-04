@@ -17,7 +17,10 @@ def run_query(query: str, variables: {str: int or str}) -> dict:
                                 json = {'query': query, 'variables': variables},
                                 headers = {'Authorization': f'Bearer {AUTH_TOKEN}'})
         request.raise_for_status()
-        return request.json()
+        json = request.json()
+        if not json:
+            raise Warning("Response from smash.gg is empty.")
+        return json
     except HTTPError as http_err:
         print(f"HTTPError occurred: {http_err}")
         return dict()
@@ -58,8 +61,8 @@ def get_event_entrants(event_id: int, num_entrants: int) -> [Player]:
     variables = { 'eventId': event_id, 'page': 1, 'perPage': num_entrants }
     response = run_query(query, variables)
     entrants = []
-    event = response["data"]["event"]
-    if event:
+    if response and response["data"]["event"]:
+        event = response["data"]["event"]
         for node in event["entrants"]["nodes"]:
             player = node["participants"][0]["player"]
             player = Player(player["gamerTag"], player["id"])
