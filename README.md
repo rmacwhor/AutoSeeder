@@ -49,3 +49,9 @@ The number of entrants is required so that all event attendees can be pulled fro
 - In most cases, the player's ID on smash.gg matches the player's ID on smashdata.gg.
 However, there are rare instances where these IDs do not match.
 As a result, autoseeder will be unable to find tournament results for this player when they actually exist.
+
+- While smashdata.gg can create tournament results for a player without a
+smash.gg account, autoseeder cannot find that data. Therefore, players
+without smash.gg accounts will never be seeded.
+(Generally, this is not a real issue, since players that aren't on smash.gg
+don't usually need to be seeded anyway...)
