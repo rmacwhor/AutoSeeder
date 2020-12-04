@@ -40,7 +40,6 @@ def autoseeder(event_id: int, num_entrants: int) -> [Player]:
     return sorted(entrants, key = lambda entrant: entrant.seed_score, reverse = True)
 
 if __name__ == '__main__':
-    # TODO: Sanitize input
     event_id = prompt_for_number("Please enter the event's ID: ")
     num_entrants = prompt_for_number("Enter the number of entrants at this event: ")
     print("Running autoseeder... (will take a while because of server requests)")
