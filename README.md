@@ -3,11 +3,15 @@
 AutoSeeder is a Python script that automatically seeds smash.gg tournaments 
 using a ranking algorithm based on player results from smashdata.gg.
 
+
+
 ### Required dependencies
 
 **Requests:** https://requests.readthedocs.io/en/master/
 
 **BeautifulSoup4:** https://www.crummy.com/software/BeautifulSoup/
+
+
 
 ### How to use
 
@@ -23,9 +27,25 @@ In a command window, simply enter the following command on Windows:
 ```python autoseeder.py```
 
 You will be prompted for the event ID and the number of entrants for the event.
-The event ID can be found by going to the Events page as an admin and 
-clicking on the event name. The ID will be at the end of the URL like so: 
+You will also be asked if you want to pull seed IDs from smash.gg.
+If you choose yes, you will need to provide the phase ID to seed.
 
-`https://smash.gg/admin/tournament/{tournament-name}/event-edit/{event-id}`
+**Warning: If you pull seed IDs from smash.gg, autoseeder will only seed
+players that have been marked as seeded on the seeding page- any
+unseeded players will not be seeded!** As such, please make sure
+you mark all players that need to be seeded before choosing this option.
+
+The event ID and phase ID can be found by going to the Brackets page as an 
+admin and switching to a bracket in the phase. The IDs will be at the end of the URL like so: 
+
+`https://smash.gg/admin/tournament/{tourney_name}/brackets/{event_id}/{phase_id}/{pool_id}`
 
 The number of entrants is required so that all event attendees can be pulled from your event in one request.
+
+
+
+### Known issues
+
+- In most cases, the player's ID on smash.gg matches the player's ID on smashdata.gg.
+However, there are rare instances where these IDs do not match.
+As a result, autoseeder will be unable to find tournament results for this player when they actually exist.
