@@ -49,6 +49,10 @@ The number of entrants is required so that all event attendees can be pulled fro
 - In most cases, the player's ID on smash.gg matches the player's ID on smashdata.gg.
 However, there are rare instances where these IDs do not match.
 As a result, autoseeder will be unable to find tournament results for this player when they actually exist.
+Testing and debugging has revealed that this is due to smashdata.gg merging results
+from multiple IDs into one player. Sometimes these merges are done erroneously,
+and consequently two separate players' data is converged into one.
+
 
 - While smashdata.gg can create tournament results for a player without a
 smash.gg account, autoseeder might not find that data due to how it connects
