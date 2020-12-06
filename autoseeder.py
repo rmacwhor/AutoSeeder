@@ -7,11 +7,11 @@ from time import sleep
 ''' Main script that performs automatic seeding functionality. '''
 
 
-def calculate_score(tourney: TournamentPlacing) -> float:
-    ''' Calculates a score for a tournament placing.
+def calculate_scores(tourneys: [TournamentPlacing]) -> float:
+    ''' Calculates a total for a list of tournament placings.
     I'd like to develop a more advanced formula for seed calculations
     in the future! :) '''
-    return tourney.num_entrants / tourney.placement
+    return sum(tourney.num_entrants / tourney.placement for tourney in tourneys)
 
 
 def prompt_for_number(prompt: str) -> int:
@@ -30,9 +30,7 @@ def autoseeder(event_id: int, num_entrants: int, update: bool = True, phase_id: 
     for entrant in entrants:
         placings = smashdata.get_player_placings(entrant)
         entrant.set_placings(placings)
-        score = 0
-        for placing in entrant.placings:
-            score += calculate_score(placing)
+        score = calculate_scores(placings)
         entrant.set_score(score)
         # To ensure politeness
         sleep(.3)
