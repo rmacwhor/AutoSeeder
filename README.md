@@ -3,6 +3,13 @@
 AutoSeeder is a Python script that automatically seeds Smash Ultimate tournaments
 on smash.gg using a ranking algorithm based on player results from smashdata.gg.
 
+It should be noted that this is not meant to be a perfect seeder- no seeding
+is perfect, after all. No matter how advanced I make the ranking algorithm
+in this program, it won't be able to consider external factors such as 
+schedule conflicts and playing your best friend round 1. However, I hope
+this tool will find some use in initial drafts of seeding or in seeding
+pools of players you are unfamiliar with.
+
 
 
 ### Required dependencies
@@ -27,10 +34,11 @@ In a command window, simply enter the following command on Windows:
 ```python autoseeder.py```
 
 You will be prompted for the event ID and the number of entrants for the event.
-You will also be asked if you want to pull seed IDs from smash.gg.
+You will also be asked if you want to automatically apply these seed changes to smash.gg.
 If you choose yes, you will need to provide the phase ID to seed.
+Either way, the program will print out a list of seeds in order of ranking, including player scores.
 
-**Warning: If you pull seed IDs from smash.gg, autoseeder will only seed
+**Warning: If you automatically apply seed changes, autoseeder will only seed
 players that have been marked as seeded on the seeding page- any
 unseeded players will not be seeded!** As such, please make sure
 you mark all players that need to be seeded before choosing this option.

@@ -33,7 +33,6 @@ def get_event_entrants(event_id: int, num_entrants: int, seeds: bool = False, ph
     at the tournament. If the seeds flag is true, the Player objects will have
     both player IDs and seed IDs (all players must be marked as seeded on smash.gg
     for this to work). '''
-    # TODO: Use GetPhaseSeeds query to get seed IDs as well as player IDs
     if seeds:
         with open('queries/queryphaseseeds.txt') as phaseseeds:
             query = phaseseeds.read()
@@ -58,6 +57,23 @@ def get_event_entrants(event_id: int, num_entrants: int, seeds: bool = False, ph
     return entrants
 
 # TODO: Write function that updates seeding on smash.gg's site
+def update_smashgg_seeds(player_seeds: [Player], phase_id: int):
+    ''' Given a list of seeded players and the phase ID, updates the seeding
+    on the smash.gg page with the new seeds. '''
+    seed_mapping = []
+    for seed_num, player in enumerate(player_seeds, 1):
+        seed_mapping.append({
+            "seedId": player.get_seed_id(),
+            "seedNum": seed_num
+        })
+    with open('queries/queryupdatephaseseeds.txt') as updatephaseseeds:
+        query = updatephaseseeds.read()
+    variables = { 'phaseId': phase_id, 'seedMapping': seed_mapping }
+    response = run_query(query, variables)
+    if 'errors' in response:
+        print(f"An error occurred while updating seeds on smash.gg: {response['errors']}")
+    else:
+        print("Successfully updates smash.gg seeds.")
 
 if __name__ == '__main__':
     for entrant in get_event_entrants(536923, 25, True, 886557):

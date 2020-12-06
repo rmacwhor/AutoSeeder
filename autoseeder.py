@@ -26,7 +26,6 @@ def prompt_for_number(prompt: str) -> int:
 def autoseeder(event_id: int, num_entrants: int, update: bool = True, phase_id: int = 0) -> [Player]:
     ''' Returns a sorted list of players seeded from highest to
     lowest. '''
-    # TODO: Make this function automatically update the seeding on smash.gg as well!
     entrants = smashgg.get_event_entrants(event_id, num_entrants, update, phase_id)
     for entrant in entrants:
         placings = smashdata.get_player_placings(entrant)
@@ -37,12 +36,16 @@ def autoseeder(event_id: int, num_entrants: int, update: bool = True, phase_id: 
         entrant.set_score(score)
         # To ensure politeness
         sleep(.3)
-    return sorted(entrants, key = lambda entrant: entrant.seed_score, reverse = True)
+    seeds = sorted(entrants, key = lambda entrant: entrant.seed_score, reverse = True)
+    if update:
+        smashgg.update_smashgg_seeds(seeds, phase_id)
+    return seeds
 
 if __name__ == '__main__':
     event_id = prompt_for_number("Please enter the event's ID: ")
     num_entrants = prompt_for_number("Enter the number of entrants at this event: ")
-    update = True if input("Would you like to get the seed IDs for players? (Y or N): ") == 'Y' else False
+    update = True if input("Would you like to automatically update the seeds on smash.gg? " +
+                           "(Y or N, default = N): ") == 'Y' else False
     phase_id = 0
     if update:
         print("NOTE: Only players marked as seeded on the seeding page will get seeded by autoseeder.")
