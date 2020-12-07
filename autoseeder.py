@@ -6,12 +6,28 @@ from time import sleep
 
 ''' Main script that performs automatic seeding functionality. '''
 
+def calculate_placing_score(tourney: TournamentPlacing, index: int) -> float:
+    ''' Calculates a score for a single tournament placing. '''
+    # Feel free to experiment with these constants to see how they affect
+    # the seeds!
+    prestige = 1.2  # Controls the rate at which a tournament's value increases
+    online_constant = 0.75  # Reduces the value of online tournaments
+    placing_constant = 0.94  # Controls the rate at which score goes down by placings
+    recency = 0.97 # Controls the rate at which older scores "decay"
 
-def calculate_scores(tourneys: [TournamentPlacing]) -> float:
-    ''' Calculates a total for a list of tournament placings.
-    I'd like to develop a more advanced formula for seed calculations
-    in the future! :) '''
-    return sum(tourney.num_entrants / tourney.placement for tourney in tourneys)
+    tourney_value = tourney.num_entrants**prestige * (online_constant if tourney.online else 1)
+    placing_score = tourney_value * placing_constant**(tourney.placement - 1) * recency**index
+    return placing_score
+
+
+def calculate_seed_score(tourneys: [TournamentPlacing]) -> float:
+    ''' Calculates a seed score for a list of tournament placings. '''
+    score = 0
+    for index, tourney in enumerate(tourneys):
+        score += calculate_placing_score(tourney, index)
+        # only score 50 most recent
+        if index == 50: break
+    return score
 
 
 def prompt_for_number(prompt: str) -> int:
@@ -30,7 +46,7 @@ def autoseeder(event_id: int, num_entrants: int, update: bool = True, phase_id: 
     for entrant in entrants:
         placings = smashdata.get_player_placings(entrant)
         entrant.set_placings(placings)
-        score = calculate_scores(placings)
+        score = calculate_seed_score(placings)
         entrant.set_score(score)
         # To ensure politeness
         sleep(.3)

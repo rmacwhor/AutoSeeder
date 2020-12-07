@@ -54,7 +54,7 @@ def get_player_placings(player: Player) -> [TournamentPlacing]:
                     soup = make_soup(url)
                     tourneys = soup.find_all(class_="tournament-listing")
                     return construct_tourney_placings(tourneys)
-        print(f"No tournaments were found on record for {player.tag}.")
+        print(f"No tournaments were found on record for {player.tag} (ID: {player.get_player_id()}).")
         return []
 
 if __name__ == '__main__':
