@@ -10,6 +10,8 @@ schedule conflicts and playing your best friend round 1. However, I hope
 this tool will find some use in initial drafts of seeding or in seeding
 pools of players you are unfamiliar with.
 
+For those curious, you can read about my process for creating a seeding algorithm here: https://docs.google.com/document/d/1V0Y3W1SJ7TbQIijofi4luB-PwVgfypRvQCixeDehc4M/edit?usp=sharing
+
 
 
 ### Required dependencies
