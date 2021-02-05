@@ -20,6 +20,8 @@ For those curious, you can read about my process for creating a seeding algorith
 
 **BeautifulSoup4:** https://www.crummy.com/software/BeautifulSoup/
 
+**lxml:** https://lxml.de/
+
 
 
 ### How to use
