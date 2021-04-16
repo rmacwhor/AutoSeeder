@@ -65,6 +65,9 @@ Testing and debugging has revealed that this is due to smashdata.gg merging resu
 from multiple IDs into one player. Sometimes these merges are done erroneously,
 and consequently two separate players' data is converged into one.
 
+- Players with certain unusual characters in their tags (Ø, for example) cause errors on smashdata.gg;
+attempting to search for these players will result in a 500 Internal Server Error.
+As such, these players will end up unseeded.
 
 - While smashdata.gg can create tournament results for a player without a
 smash.gg account, autoseeder might not find that data due to how it connects
