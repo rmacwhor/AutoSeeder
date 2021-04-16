@@ -38,7 +38,12 @@ def get_player_placings(player: Player) -> [TournamentPlacing]:
         on smashdata.gg and returns the player's tournament results
         as a list of TournamentPlacing objects. '''
     url = f"https://smashdata.gg/smash/ultimate/player/{player.tag}?id={player.id}"
-    soup = make_soup(url)
+    try:
+        soup = make_soup(url)
+    except requests.exceptions.HTTPError as http_err:
+        print(f"An error occurred while trying to get tourney placements for {player.tag} (ID: {player.get_player_id()}).")
+        print(http_err)
+        return []
     tourneys = soup.find_all(class_="tournament-listing")
     if tourneys:
         return construct_tourney_placings(tourneys)
